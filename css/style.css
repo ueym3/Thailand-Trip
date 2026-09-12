@@ -1,0 +1,353 @@
+@charset "UTF-8";
+  :root{
+    --bg:#F7EFDC;
+    --bg-card:#FFFCF4;
+    --ink:#21221D;
+    --ink-soft:#5B5748;
+    --gold:#B0842A;
+    --teal:#0B6E5C;
+    --teal-soft:#E6EFEA;
+    --brick:#A1402F;
+    --line:rgba(33,34,29,0.16);
+    --line-soft:rgba(33,34,29,0.09);
+    --radius-tag: 3px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{ font-family:'Zen Old Mincho', serif; }
+  .en{ font-family:'Fraunces', serif; }
+  a{ color:var(--teal); }
+  img{max-width:100%;}
+
+  /* ---------- layout shells ---------- */
+  .wrap{ max-width:720px; margin:0 auto; padding:0 20px; }
+  section{ padding:56px 0 8px; }
+  .rule{ border:none; border-top:1px dashed var(--line); margin:0; }
+
+  /* ---------- hero (boarding pass) ---------- */
+.hero{
+  background: linear-gradient(180deg,#123A32 0%,#0B6E5C 62%,#0B6E5C 100%);
+  color:#F7EFDC;
+  padding:20px 0 30px;
+  position:relative;
+  overflow:hidden;
+}
+  .hero .wrap{ position:relative; z-index:2; }
+  .hero-kicker{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:14px;
+    letter-spacing:.04em;
+    color:#D9C98A;
+    margin:0 0 6px;
+  }
+  .hero h1{
+    font-size:clamp(40px,10vw,58px);
+    font-weight:900;
+    margin:0 0 14px;
+    line-height:1.1;
+  }
+  .hero-dates{
+    font-size:15px;
+    color:#EDE4C7;
+    margin:0 0 24px;
+  }
+  .route-strip {
+    display: flex;
+    flex-direction: column; /* 往路と復路のブロック自体も縦に並べる場合 */
+    gap: 15px;             /* 往路と復路の間の余白 */
+  }
+  .route-leg {
+    display: flex;
+    flex-direction: column; /* 子要素（spanなど）をすべて縦並びにする */
+    align-items: flex-start; /* 左寄せに揃える */
+    gap: 4px;               /* 縦に並んだテキスト同士の行間調整 */
+  }
+  .route-leg .code{ font-family:'Fraunces',serif; font-weight:600; font-size:20px; letter-spacing:.02em; }
+  .route-leg .plane{ color:var(--gold); opacity:.9; }
+  .hero-hotel{ font-size:13.5px; color:#D9CFA8; }
+  .hero-hotel b{ color:#F7EFDC; font-weight:700; }
+
+/* 空港コードと飛行機マークの行は横並びを維持 */
+  .airport-line {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* リンクに下線を引く設定 */
+  .hotel-link {
+   text-decoration: underline; /* 下線を引く */
+   color: #F7EFDC;             /* 文字色（好みの色に調整してください） */
+  }
+
+.map-btn{
+  position:absolute;
+  top:10px;
+  right:10px;
+
+  width:32px;
+  height:32px;
+
+  border-radius:50%;
+
+  background:#b02a2a;
+  color:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  text-decoration:none;
+}
+
+.map-btn:hover{
+  opacity:.8;
+}
+
+.map-btn i{
+  font-size:16px;
+}
+  
+  /* ---------- sticky day nav ---------- */
+  .daynav{
+    position:sticky; top:0; z-index:10;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+    overflow-x:auto;
+    white-space:nowrap;
+    scrollbar-width:none;
+  }
+  .daynav::-webkit-scrollbar{ display:none; }
+  .daynav .wrap{ display:flex; gap:6px; padding:10px 20px; }
+  .daynav a{
+    flex:0 0 auto;
+    text-decoration:none;
+    color:var(--ink-soft);
+    font-size:13px;
+    padding:7px 13px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--bg-card);
+  }
+  .daynav a.active{
+    color:#fff;
+    background:var(--teal);
+    border-color:var(--teal);
+  }
+
+  /* ---------- day header (ticket stub) ---------- */
+  .day-stub{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:20px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    position:relative;
+  }
+  .day-stub .num{
+    font-family:'Fraunces', serif;
+    font-size:44px;
+    font-weight:600;
+    color:var(--teal);
+    line-height:1;
+  }
+  .day-stub .meta{ text-align:right; }
+  .day-stub .date{ font-size:14px; color:var(--ink-soft); }
+  .day-stub .theme{ font-size:19px; font-weight:700; margin-top:2px; }
+  .day-title-row{ display:flex; align-items:baseline; gap:10px; margin-bottom:14px; }
+  .day-title-row .daylabel{ font-size:13px; color:var(--ink-soft); }
+
+  /* ---------- timeline ---------- */
+  .timeline{ margin-top:22px; position:relative; }
+  .timeline::before{
+    content:"";
+    position:absolute; left:64px; top:6px; bottom:6px;
+    width:1px; background:var(--line);
+  }
+  .titem{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    column-gap:18px;
+    padding:14px 0;
+    position:relative;
+  }
+  .titem .time{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:14px;
+    color:var(--ink);
+    text-align:right;
+    padding-top:2px;
+  }
+  .titem .time small{ display:block; font-family:'Zen Kaku Gothic New',sans-serif; font-size:10.5px; color:var(--ink-soft); font-weight:400; }
+  .titem .dot{
+    position:absolute; left:60px; top:20px;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--teal); border:2px solid var(--bg);
+  }
+  .titem .content{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-left:3px solid var(--teal);
+    border-radius:0 6px 6px 0;
+    padding:12px 16px;
+    position:relative;
+  }
+  .titem .content.meal{ border-left-color:var(--brick); }
+  .titem .content.move{ border-left-color:var(--gold); background:transparent; border-style:dashed; position:relative; }
+  .titem h4{ margin:0 0 4px; font-size:15.5px; font-weight:700; }
+  .titem .place{ font-size:12.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .titem p{ margin:4px 0 0; font-size:13.5px; color:var(--ink-soft); }
+  .tag{
+    display:inline-block;
+    font-size:11px;
+    color:var(--brick);
+    border:1px solid var(--brick);
+    border-radius:999px;
+    padding:1px 8px;
+    margin-left:6px;
+    vertical-align:middle;
+  }
+
+  /* route line for day3 */
+  .flow{
+    display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+    font-size:13.5px; color:var(--ink-soft); margin:18px 0 4px;
+  }
+  .flow b{ color:var(--ink); font-weight:700; }
+  .flow .arrow{ color:var(--gold); }
+
+  /* info boxes */
+  .infobox{
+    background:var(--teal-soft);
+    border:1px solid rgba(11,110,92,.25);
+    border-radius:6px;
+    padding:14px 18px;
+    margin:18px 0;
+    font-size:13.5px;
+  }
+  .infobox h5{ margin:0 0 8px; font-size:13px; color:var(--teal); font-weight:700; }
+  .infobox ul{ margin:0; padding-left:18px; }
+  .infobox li{ margin-bottom:5px; }
+
+  /* ---------- memo section ---------- */
+  .memo-head{ text-align:left; margin-bottom:4px; }
+  .memo-head h2{ font-size:26px; margin:0 0 4px; }
+  .memo-head p{ color:var(--ink-soft); font-size:13.5px; margin:0; }
+
+  .doc-card{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:20px 22px;
+    margin:24px 0;
+  }
+  .doc-card h3{ font-size:16.5px; margin:0 0 4px; display:flex; align-items:center; gap:8px; }
+  .doc-card .sub{ font-size:12px; color:var(--ink-soft); margin-bottom:14px; }
+
+  /* checklist (todo / yaritai) */
+  ul.check{ list-style:none; margin:0; padding:0; }
+  ul.check li{
+    display:flex; align-items:flex-start; gap:10px;
+    padding:6px 0; font-size:14px; border-bottom:1px dashed var(--line-soft);
+    cursor:pointer; user-select:none;
+  }
+  ul.check li:last-child{ border-bottom:none; }
+  ul.check .box{
+    width:16px; height:16px; margin-top:2px; flex:0 0 auto;
+    border:1.5px solid var(--ink-soft); border-radius:3px; position:relative;
+  }
+  ul.check li.done .box{ background:var(--teal); border-color:var(--teal); }
+  ul.check li.done .box::after{
+    content:""; position:absolute; left:3px; top:0px; width:4px; height:8px;
+    border:solid #fff; border-width:0 2px 2px 0; transform:rotate(40deg);
+  }
+  ul.check li.done .label{ text-decoration:line-through; color:var(--ink-soft); }
+  .subgroup{ font-size:12.5px; color:var(--gold); font-weight:700; margin:14px 0 2px; }
+  .subgroup:first-child{ margin-top:0; }
+
+  /* stamp card (food) */
+  .stampgrid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
+    gap:12px;
+  }
+  .stamp{
+    border:1px dashed var(--line);
+    border-radius:6px;
+    padding:14px 10px;
+    text-align:center;
+    font-size:13px;
+    position:relative;
+    background:var(--bg);
+    cursor:pointer;
+  }
+  .stamp.done{
+    background:var(--teal-soft);
+    border-style:solid; border-color:var(--teal);
+    color:var(--teal);
+    font-weight:700;
+  }
+  .stamp .ring{
+    width:34px; height:34px; margin:0 auto 8px;
+    border-radius:50%; border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-size:15px; color:var(--ink-soft);
+  }
+  .stamp.done .ring{
+    border-color:var(--teal); color:var(--teal); transform:rotate(-8deg);
+  }
+
+  /* luggage tag */
+  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
+  .luggage-tag{
+    background:#F1E7C9;
+    border:1px solid var(--gold);
+    border-radius:4px;
+    padding:5px 12px;
+    font-size:13px;
+    position:relative;
+  }
+  .luggage-tag::before{
+    content:""; position:absolute; left:-6px; top:50%; transform:translateY(-50%);
+    width:6px; height:6px; border-radius:50%; background:var(--bg); border:1px solid var(--gold);
+  }
+  .note-line{ font-size:12.5px; color:var(--ink-soft); margin-top:12px; padding-top:10px; border-top:1px dashed var(--line-soft); }
+
+  /* receipt (budget) */
+  .receipt{ font-family:'Fraunces', serif; }
+  .receipt-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-size:14.5px; padding:8px 0; border-bottom:1px dashed var(--line-soft);
+    font-family:'Zen Kaku Gothic New',sans-serif;
+  }
+  .receipt-row .amt{ font-family:'Fraunces',serif; font-weight:600; font-variant-numeric:tabular-nums; }
+  .receipt-row.total{ border-bottom:none; border-top:1px solid var(--ink); margin-top:4px; padding-top:12px; font-weight:700; }
+  .receipt-row .amt.pending{ color:var(--ink-soft); font-family:inherit; font-weight:400; font-size:13px; }
+
+  footer{
+    text-align:center;
+    padding:50px 20px 60px;
+    color:var(--ink-soft);
+    font-size:13px;
+  }
+  footer .en{ display:block; font-size:20px; color:var(--teal); margin-bottom:6px; }
+
+  @media (max-width:480px){
+    .day-stub{ padding:16px 18px; }
+    .day-stub .num{ font-size:34px; }
+    .titem{ grid-template-columns:52px 1fr; column-gap:12px; }
+    .timeline::before{ left:52px; }
+    .titem .dot{ left:48px; }
+  }

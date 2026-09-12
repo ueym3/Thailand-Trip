@@ -163,7 +163,7 @@
     color:var(--teal);
     line-height:1;
   }
-  .day-stub .meta{ text-align:right; }
+  .day-stub .meta{ text-align:right; margin-left: 40px; }
   .day-stub .date{ font-size:14px; color:var(--ink-soft); }
   .day-stub .theme{ font-size:19px; font-weight:700; margin-top:2px; }
   .day-title-row{ display:flex; align-items:baseline; gap:10px; margin-bottom:14px; }

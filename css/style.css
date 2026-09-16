@@ -116,6 +116,13 @@
 .map-btn i{
   font-size:16px;
 }
+
+.image{
+  display:block;
+  width:100%;
+  margin:4px 0 0;
+  border-radius:6px;
+}
   
   /* ---------- sticky day nav ---------- */
   .daynav{
@@ -163,7 +170,7 @@
     color:var(--teal);
     line-height:1;
   }
-  .day-stub .meta{ text-align:right; margin-left: 40px; }
+  .day-stub .meta{ text-align:right; margin-left:auto; margin-right:40px; /* アイコン分の余白を確保 */ }
   .day-stub .date{ font-size:14px; color:var(--ink-soft); }
   .day-stub .theme{ font-size:19px; font-weight:700; margin-top:2px; }
   .day-title-row{ display:flex; align-items:baseline; gap:10px; margin-bottom:14px; }
